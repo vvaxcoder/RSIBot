@@ -5,6 +5,8 @@ The original Python bindings included with TA-Lib use SWIG which unfortunately a
 
 TA-Lib [Configuration Reference](https://github.com/mrjbq7/ta-lib#dependencies).
 
+binance-spot-api-docs [Configuration Reference](https://github.com/binance-exchange/binance-official-api-docs).
+
 Linux
 Download ta-lib-0.4.0-src.tar.gz and:
 
