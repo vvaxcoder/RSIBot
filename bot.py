@@ -10,7 +10,7 @@ def on_close_func(ws):
     print('the connection has closed')
 
 def on_message_func(ws, message):
-    print('the connection has closed')
+    print('the message has sent')
 
 ws = websocket.WebSocketApp(SOCKET, on_open=on_open_func, on_close=on_close_func, on_message=on_message_func)
 ws.run_forever()
