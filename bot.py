@@ -1,4 +1,6 @@
 import websocket, json, pprint, talib, numpy
+from binance.client import Client
+from binance.enums import *
 
 # from github https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md#general-wss-information
 SOCKET = "wss://stream.binance.com:9443/ws/dogeusdt@kline_1m"
@@ -9,6 +11,8 @@ RSI_OVERSOLD = 30
 TRADE_SYMBOL = "DOGEUSD"
 TRADE_QUANTITY = 30
 in_position = False
+
+client = Client(config.API_KEY, config.API_SECRET, tld="us")
 
 def on_open_func(ws):
     print('the connection has opened')
