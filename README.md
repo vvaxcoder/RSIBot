@@ -17,3 +17,6 @@ $ cd ta-lib/
 $ ./configure --prefix=/usr
 $ make
 $ sudo make install
+
+Rename config.copy.py->config.py
+fill API_KEY and API_SECRET from Binance API.

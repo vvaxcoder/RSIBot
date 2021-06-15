@@ -1,6 +1,7 @@
 import websocket, json, pprint, talib, numpy
 from binance.client import Client
 from binance.enums import *
+import config
 
 # from github https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md#general-wss-information
 SOCKET = "wss://stream.binance.com:9443/ws/dogeusdt@kline_1m"
@@ -13,6 +14,17 @@ TRADE_QUANTITY = 30
 in_position = False
 
 client = Client(config.API_KEY, config.API_SECRET, tld="us")
+
+def order(side, quantity, symbol, order_type=ORDER_TYPE_MARKET):
+    try:
+        order = client.create_order(symbol=symboly,
+        side=side, type=order_type,
+        quantity=quantity)
+        print(order)
+    except Exception as e:
+        return False
+
+    return True
 
 def on_open_func(ws):
     print('the connection has opened')
@@ -47,6 +59,10 @@ def on_message_func(ws, message):
                 if in_position:
                     print("Overbought! Sell!")
                     # put binance sell order logic here
+                    order_succeeded = order(SIDE_SELL, TRADE_QUANTITY, TRADE_SYMBOL)
+
+                    if order_succeeded:
+                        in_position = False
                 else:
                     print("It is overbought, but we don't own any. Nothing to do.")
 
@@ -56,6 +72,10 @@ def on_message_func(ws, message):
                 else:
                     print("Oversell! Buy!")
                     # put binance buy order logic here
+                    order_succeeded = order(SIDE_BUY, TRADE_QUANTITY, TRADE_SYMBOL)
+
+                    if order_succeeded:
+                        in_position = True
 
 ws = websocket.WebSocketApp(SOCKET, on_open=on_open_func, on_close=on_close_func, on_message=on_message_func)
 ws.run_forever()
